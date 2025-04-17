@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>Review Application | FairQuest</title>
   <style>
-   body {
-  font-family: 'Domine', serif;
-  background-color: #000;
-  padding: 40px;
-  text-align: center;
-  color: #f0e6d2;
-}
+    body {
+      font-family: 'Domine', serif;
+      background-color: #000;
+      padding: 40px;
+      text-align: center;
+      color: #f0e6d2;
+      margin: 0;
+    }
 
-h1, h2 {
-  font-family: 'Cinzel', serif;
-}
+    h1, h2 {
+      font-family: 'Cinzel', serif;
+    }
 
-.top-banner {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 20px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+    .top-banner {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
 
-.logo {
-  max-width: 100px;
-  height: auto;
-  margin: 0 auto 20px auto;
-  display: block;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-  transition: transform 0.3s ease;
-}
-.logo:hover {
-  transform: scale(1.05);
-}
+    .logo {
+      max-width: 100px;
+      height: auto;
+      margin: 0 auto 20px auto;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
 
     .summary-box {
       background: white;
@@ -45,13 +48,21 @@ h1, h2 {
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       margin-bottom: 20px;
+      color: #333;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
     .summary-box p {
       margin-bottom: 12px;
     }
+
     ul {
       padding-left: 20px;
+      text-align: left;
     }
+
     button {
       padding: 12px 20px;
       font-size: 16px;
@@ -60,31 +71,79 @@ h1, h2 {
       border-radius: 6px;
       cursor: pointer;
     }
+
     .back-button {
       background-color: #aaa;
       color: white;
     }
+
     .submit-button {
       background-color: #4CAF50;
       color: white;
     }
+
     .message {
       margin-top: 20px;
       font-size: 16px;
     }
+
     .success { color: green; }
     .error { color: red; }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #aa8452;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* 📱 Mobile Optimization */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .summary-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      p, ul {
+        font-size: 15px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px 16px;
+      }
+
+      .message {
+        font-size: 15px;
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
- <!-- Banner Image -->
- <img src="images/banner.png" alt="FairQuest Banner" class="top-banner" />
+  <img src="images/banner.png" alt="FairQuest Banner" class="top-banner" />
+  <img src="images/logo.png" alt="FairQuest Logo" class="logo" />
 
- <!-- Logo -->
- <img src="images/logo.png" alt="FairQuest Logo" class="logo" />
-
- <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Domine&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Domine&display=swap" rel="stylesheet">
 
   <h1>Review Your Application</h1>
   <div class="summary-box" id="reviewBox"></div>
@@ -118,7 +177,6 @@ h1, h2 {
         <p><strong>Bio:</strong> ${data.description}</p>
         <p><strong>Contact:</strong> ${data.contactName} (${data.contactEmail})</p>
         ${data.photoUrl ? `<p><strong>Photo:</strong><br><img src="${data.photoUrl}" width="150"/></p>` : ''}
-
         <h2>Fairs Selected</h2>
         <ul>
           ${data.fairs.map(f => `<li><strong>${f.name}</strong>: ${f.start} to ${f.end}</li>`).join('')}
@@ -131,74 +189,67 @@ h1, h2 {
     }
 
     async function submitApplication() {
-  const msg = document.getElementById('message');
-  msg.textContent = 'Submitting...';
-  msg.className = '';
+      const msg = document.getElementById('message');
+      msg.textContent = 'Submitting...';
+      msg.className = '';
 
-  // ✅ 1. Get the current signed-in user
-  const { data: user } = await supabase.auth.getUser();
+      const { data: user } = await supabase.auth.getUser();
+      console.log("user ID going into insert:", user?.user?.id);
 
-  // ✅ 2. Log the user ID to confirm it’s working
-  console.log("user ID going into insert:", user?.user?.id);
+      const { data: appData, error: insertError } = await supabase
+        .from('vendor_applications')
+        .insert([{
+          name: data.name,
+          description: data.description,
+          photo_url: data.photoUrl,
+          vendor_type: data.vendorType,
+          contact_name: data.contactName,
+          contact_email: data.contactEmail,
+          approval_status: 'pending',
+          user_id: user?.user?.id
+        }])
+        .select()
+        .single();
 
-  // ✅ 3. Insert into vendor_applications
-  const { data: appData, error: insertError } = await supabase
-    .from('vendor_applications')
-    .insert([{
-      name: data.name,
-      description: data.description,
-      photo_url: data.photoUrl,
-      vendor_type: data.vendorType,
-      contact_name: data.contactName,
-      contact_email: data.contactEmail,
-      approval_status: 'pending',
-      user_id: user?.user?.id  // 👈 This must match auth.uid() in your RLS policy
-    }])
-    .select()
-    .single();
+      if (insertError) {
+        msg.textContent = '❌ Error submitting application: ' + insertError.message;
+        msg.className = 'error';
+        return;
+      }
 
-  if (insertError) {
-    msg.textContent = '❌ Error submitting application: ' + insertError.message;
-    msg.className = 'error';
-    return;
-  }
+      const fairRows = data.fairs.map(f => ({
+        application_id: appData.id,
+        fair_id: parseInt(f.id),
+        start_date: f.start,
+        end_date: f.end
+      }));
 
-  // 🎯 Insert selected fairs after application is created
-  const fairRows = data.fairs.map(f => ({
-    application_id: appData.id,
-    fair_id: parseInt(f.id),
-    start_date: f.start,
-    end_date: f.end
-  }));
+      const { error: fairError } = await supabase.from('vendor_application_fairs').insert(fairRows);
 
-  const { error: fairError } = await supabase.from('vendor_application_fairs').insert(fairRows);
+      if (fairError) {
+        msg.textContent = '⚠️ Application saved but fair selection failed: ' + fairError.message;
+        msg.className = 'error';
+        return;
+      }
 
-  if (fairError) {
-    msg.textContent = '⚠️ Application saved but fair selection failed: ' + fairError.message;
-    msg.className = 'error';
-    return;
-  }
+      msg.textContent = '✅ Your application has been submitted successfully!';
+      msg.className = 'success';
+      localStorage.removeItem('vendorAppDraft');
 
-  msg.textContent = '✅ Your application has been submitted successfully!';
-  msg.className = 'success';
-  localStorage.removeItem('vendorAppDraft');
-
-  setTimeout(() => {
-    window.location.href = 'thankyou.html';
-  }, 1500);
-}
-
+      setTimeout(() => {
+        window.location.href = 'thankyou.html';
+      }, 1500);
+    }
 
     renderReview();
   </script>
- <footer style="margin-top: 40px; font-size: 14px;">
+
+  <footer style="margin-top: 40px; font-size: 14px;">
     <a href="index.html" style="color: #aa8452;">Home</a> |
     <a href="info.html" style="color: #aa8452;">Info</a> |
     <a href="terms.html" style="color: #aa8452;">Terms</a> |
     <a href="privacy.html" style="color: #aa8452;">Privacy</a> |
     <a href="contact.html" style="color: #aa8452;">Contact</a>
   </footer>
-  
-  
 </body>
 </html>

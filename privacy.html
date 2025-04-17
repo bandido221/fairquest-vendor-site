@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>Privacy Policy | FairQuest</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Domine&display=swap" rel="stylesheet">
@@ -11,6 +12,7 @@
       padding: 40px;
       text-align: center;
       color: #f0e6d2;
+      margin: 0;
     }
 
     h1, h2 {
@@ -78,6 +80,36 @@
 
     .home-button:hover {
       filter: brightness(1.1);
+    }
+
+    /* 📱 Mobile optimization */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 20px;
+        margin-top: 20px;
+      }
+
+      p, li {
+        font-size: 15px;
+      }
+
+      .home-button {
+        font-size: 15px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>

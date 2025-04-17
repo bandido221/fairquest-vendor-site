@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
   <title>FairQuest Vendor Terms</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Domine&display=swap" rel="stylesheet">
@@ -11,6 +12,7 @@
       color: #f0e6d2;
       padding: 40px;
       text-align: center;
+      margin: 0;
     }
 
     .top-banner {
@@ -73,6 +75,34 @@
       cursor: pointer;
       text-align: center;
       text-decoration: none;
+    }
+
+    .home-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /* 📱 Mobile Optimization */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      p, li {
+        font-size: 15px;
+      }
+
+      .home-btn {
+        font-size: 15px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>

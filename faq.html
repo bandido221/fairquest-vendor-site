@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ | FairQuest</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Domine&display=swap" rel="stylesheet">
   <style>
@@ -11,6 +12,7 @@
       padding: 40px;
       text-align: center;
       color: #f0e6d2;
+      margin: 0;
     }
 
     h1, h2 {
@@ -76,6 +78,38 @@
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    /* 📱 Mobile Styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .logo {
+        max-width: 80px;
+      }
+
+      .top-banner {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
